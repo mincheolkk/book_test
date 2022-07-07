@@ -1,83 +1,22 @@
 <template>
-  <div id="app">
-    <BookInput>BookInput</BookInput>
-    <BookList
-      v-bind:propsdata="min"
-      v-on:testTime="makeData"
-      v-on:makeChart="drawChart"
-      >BookList</BookList>
-    <TestChart :height="'50px'" :first-data="20" :second-data="'80'"/>
-    
+  <div class="list-chart-div">
+        <canvas  :id="result.detailData.isbn"/>
   </div>
 </template>
 
 <script>
-import BookList from './components/BookList.vue'
-import TestChart from './components/TestChart.vue'
-import BookInput from './components/BookInput.vue'
-
-import axios from "axios";
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
-// let newChart;
-
 export default {
-  name: 'App',
+    props: ['madedData'],
+    data(){
+        return{
+            
+        }
+    },
 
-  components: {
-    BookList,
-    TestChart,
-    BookInput
-  },
-  data() {
-    return {
-      min: '',
-      timeData:'',
-      isbn:'',
-      beforeChart:[],
-      // newChart:'',
-      options:{
-          scales: {
-              x:{
-                  stacked:true,
-                  display:false
-              },
-              y: {
-                  stacked:true,
-                  display:false
-              }
-          },
-          indexAxis:'y',
-          plugins:{
-              legend:{
-                  display:true
-              }
-          }
-      },
-    }
-  },
-   
-//   async mounted(){
-//     this.$nextTick(function () {
-//       this.createChart()
-//     })
-//   },
-
-
-  created() {
-     this.min = axios
-                .get('https://438d14e0-58fe-4eb2-8704-c2b65596f942.mock.pstmn.io/test')
-                .then(res => {
-
-                        this.min = res.data.resultList;
-                    })
-                .catch(error => {
-                        console.log(error)
-                })
-  },
-  
-  methods: {
+    methods: {
     makeData(timeData) {
      this.beforeChart = {
         "before":this.timeDivide(timeData["before"]),
@@ -141,8 +80,8 @@ export default {
       // return newChart 
     }
   }
+
 }
-  
 </script>
 
 <style>

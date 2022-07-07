@@ -1,13 +1,14 @@
 <template>
     <h1> 개발자의 서재</h1>
-    <div v-for="(result) in propsdata" v-bind:key="result" class="shadow">
+    <div v-for="(result) in propsdata" v-bind:key="result.detailData.isbn" class="shadow">
         <img :src="result.detailData.thumbnail" alt="image"/>
         <p>{{result.detailData.authors}}</p>
         <button v-on:click="pleaseTime(result)">button</button>
         <button v-on:click="pleaseChart(result)">chart</button>
         <div>{{result.readTimeMap}}</div>
         
-        <canvas :id="result.detailData.isbn"/>
+        <canvas  :id="result.detailData.isbn"/>
+
     </div>
   
 </template>
